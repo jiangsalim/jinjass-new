@@ -1,7 +1,7 @@
 markdown
 # Jinja Senior Secondary School Website
 
-![Jinja SS](https://jinjass.sc.ug/badge.png)
+![Jinja SS](https://jinjass.sc.ug/)
 
 A modern, fully-featured website for **Jinja Senior Secondary School (JINJA SS)** — a government school founded in 1948 offering O'Level and A'Level education in Jinja, Uganda.
 
