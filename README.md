@@ -155,8 +155,7 @@ Privacy Policy	/privacy
 Terms	/terms
 Sitemap	/sitemap
   Developer
-Developed by Herman Software Solutions
-https://herman-software-website.vercel.app/
+Developed by ![Herman Software Solutions](https://herman-software-website.vercel.app/)
 
     License
 © 2026 Jinja Senior Secondary School. All rights reserved.
