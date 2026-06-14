@@ -13,12 +13,14 @@ import SportsSection from "@/components/SportsSection";
 import FacilitiesSection from "@/components/FacilitiesSection";
 import ContactSection from "@/components/ContactSection";
 import PageTransition from "@/components/PageTransition";
+import AnnouncementsSection from "@/components/AnnouncementsSection";
 
 export default function HomePage() {
   return (
     <PageTransition>
       <Hero />
       <StatsCounter />
+      <AnnouncementsSection />
       <HeadTeacherWelcome />
       <FeesSection />
       <TermDates />
