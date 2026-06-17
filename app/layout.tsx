@@ -3,6 +3,7 @@ import { client } from "@/lib/sanity";
 import { siteSettingsQuery, navigationQuery, footerSettingsQuery } from "@/lib/queries";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import "./globals.css";
+import BackToTop from "@/components/BackToTop";
 
 export const metadata: Metadata = {
   title: { default: "Jinja Senior Secondary School | Excellence in Education", template: "%s | Jinja Senior Secondary School" },
@@ -22,6 +23,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <LayoutWrapper siteSettings={siteSettings} navigation={navigation} footerSettings={footerSettings}>
           {children}
         </LayoutWrapper>
+        <BackToTop />
       </body>
     </html>
   );
