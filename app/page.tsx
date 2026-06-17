@@ -1,9 +1,10 @@
 import { client } from "@/lib/sanity";
-import { homePageQuery, announcementsQuery, newsArticlesQuery, homepageStaffQuery, unebResultsQuery, feeStructureQuery, aboutContentQuery, termDatesQuery, whyChooseUsQuery, sportsQuery, clubsQuery, facilitiesQuery, subjectCategoriesQuery } from "@/lib/queries";
+import { siteSettingsQuery, homePageQuery, announcementsQuery, newsArticlesQuery, homepageStaffQuery, unebResultsQuery, feeStructureQuery, aboutContentQuery, termDatesQuery, whyChooseUsQuery, sportsQuery, clubsQuery, facilitiesQuery, subjectCategoriesQuery } from "@/lib/queries";
 import HomePageClient from "@/components/HomePageClient";
 
 export default async function HomePage() {
-  const [homePage, announcements, newsArticles, staff, unebResults, feeStructure, aboutContent, termDates, whyChooseUs, sports, clubs, facilities, subjectCategories] = await Promise.all([
+  const [siteSettings, homePage, announcements, newsArticles, staff, unebResults, feeStructure, aboutContent, termDates, whyChooseUs, sports, clubs, facilities, subjectCategories] = await Promise.all([
+    client.fetch(siteSettingsQuery).catch(() => null),
     client.fetch(homePageQuery).catch(() => null),
     client.fetch(announcementsQuery).catch(() => []),
     client.fetch(newsArticlesQuery).catch(() => []),
@@ -18,5 +19,5 @@ export default async function HomePage() {
     client.fetch(facilitiesQuery).catch(() => []),
     client.fetch(subjectCategoriesQuery).catch(() => []),
   ]);
-  return <HomePageClient homePage={homePage} announcements={announcements} newsArticles={newsArticles} staff={staff} unebResults={unebResults} feeStructure={feeStructure} aboutContent={aboutContent} termDates={termDates} whyChooseUs={whyChooseUs} sports={sports} clubs={clubs} facilities={facilities} subjectCategories={subjectCategories} />;
+  return <HomePageClient siteSettings={siteSettings} homePage={homePage} announcements={announcements} newsArticles={newsArticles} staff={staff} unebResults={unebResults} feeStructure={feeStructure} aboutContent={aboutContent} termDates={termDates} whyChooseUs={whyChooseUs} sports={sports} clubs={clubs} facilities={facilities} subjectCategories={subjectCategories} />;
 }
