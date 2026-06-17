@@ -1,38 +1,22 @@
-import Hero from "@/components/Hero";
-import StatsCounter from "@/components/StatsCounter";
-import HeadTeacherWelcome from "@/components/HeadTeacherWelcome";
-import FeesSection from "@/components/FeesSection";
-import TermDates from "@/components/TermDates";
-import AdminTeam from "@/components/AdminTeam";
-import UNEBResults from "@/components/UNEBResults";
-import NewsSection from "@/components/NewsSection";
-import AboutSection from "@/components/AboutSection";
-import SubjectsSection from "@/components/SubjectsSection";
-import WhyChooseUs from "@/components/WhyChooseUs";
-import SportsSection from "@/components/SportsSection";
-import FacilitiesSection from "@/components/FacilitiesSection";
-import ContactSection from "@/components/ContactSection";
-import PageTransition from "@/components/PageTransition";
-import AnnouncementsSection from "@/components/AnnouncementsSection";
+import { client } from "@/lib/sanity";
+import { homePageQuery, announcementsQuery, newsArticlesQuery, homepageStaffQuery, unebResultsQuery, feeStructureQuery, aboutContentQuery, termDatesQuery, whyChooseUsQuery, sportsQuery, clubsQuery, facilitiesQuery, subjectCategoriesQuery } from "@/lib/queries";
+import HomePageClient from "@/components/HomePageClient";
 
-export default function HomePage() {
-  return (
-    <PageTransition>
-      <Hero />
-      <StatsCounter />
-      <AnnouncementsSection />
-      <HeadTeacherWelcome />
-      <FeesSection />
-      <TermDates />
-      <AdminTeam />
-      <UNEBResults />
-      <NewsSection />
-      <AboutSection />
-      <SubjectsSection />
-      <WhyChooseUs />
-      <SportsSection />
-      <FacilitiesSection />
-      <ContactSection />
-    </PageTransition>
-  );
+export default async function HomePage() {
+  const [homePage, announcements, newsArticles, staff, unebResults, feeStructure, aboutContent, termDates, whyChooseUs, sports, clubs, facilities, subjectCategories] = await Promise.all([
+    client.fetch(homePageQuery).catch(() => null),
+    client.fetch(announcementsQuery).catch(() => []),
+    client.fetch(newsArticlesQuery).catch(() => []),
+    client.fetch(homepageStaffQuery).catch(() => []),
+    client.fetch(unebResultsQuery).catch(() => null),
+    client.fetch(feeStructureQuery).catch(() => null),
+    client.fetch(aboutContentQuery).catch(() => null),
+    client.fetch(termDatesQuery).catch(() => null),
+    client.fetch(whyChooseUsQuery).catch(() => null),
+    client.fetch(sportsQuery).catch(() => []),
+    client.fetch(clubsQuery).catch(() => []),
+    client.fetch(facilitiesQuery).catch(() => []),
+    client.fetch(subjectCategoriesQuery).catch(() => []),
+  ]);
+  return <HomePageClient homePage={homePage} announcements={announcements} newsArticles={newsArticles} staff={staff} unebResults={unebResults} feeStructure={feeStructure} aboutContent={aboutContent} termDates={termDates} whyChooseUs={whyChooseUs} sports={sports} clubs={clubs} facilities={facilities} subjectCategories={subjectCategories} />;
 }
