@@ -23,3 +23,4 @@ export const singleStaffQuery = (slug: string) => `*[_type == "staff" && slug.cu
 export const singleSportQuery = (slug: string) => `*[_type == "sport" && slug.current == "${slug}"][0]`;
 export const singleClubQuery = (slug: string) => `*[_type == "club" && slug.current == "${slug}"][0]`;
 export const singlePageQuery = (slug: string) => `*[_type == "page" && slug.current == "${slug}"][0]`;
+export const timetablesQuery = `*[_type == "timetable"] | order(year desc, classLevel asc, stream asc)`;
