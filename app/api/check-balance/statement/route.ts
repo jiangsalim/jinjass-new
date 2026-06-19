@@ -8,9 +8,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Payment code is required" }, { status: 400 });
   }
 
+  const apiUrl = process.env.NEXT_PUBLIC_ONECARD_API_URL || "http://127.0.0.1:8000";
+
   try {
     const response = await fetch(
-      `https://onecard.jinjasss.sc.ug/api/public/statement/?payment_code=${paymentCode}&api_key=${process.env.ONECARD_API_KEY}`
+      `${apiUrl}/api/public/statement/?payment_code=${paymentCode}&api_key=${process.env.ONECARD_API_KEY}`
     );
     const blob = await response.blob();
     return new NextResponse(blob, {
