@@ -30,6 +30,18 @@
     background-color: #0A1F3F;
   }
 
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl lg:text-4xl;
+  }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
@@ -39,6 +51,10 @@
 
   .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
     color: #FFFFFF;
+  }
+
+  img {
+    @apply max-w-full h-auto;
   }
 
   ::selection {
@@ -70,7 +86,11 @@
 
 @layer components {
   .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-20 lg:py-24;
   }
 
   .glass {
@@ -169,4 +189,15 @@
   .stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
   .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
   .stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+}
+
+
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+
+main {
+  overflow-x: hidden;
+  max-width: 100vw;
 }

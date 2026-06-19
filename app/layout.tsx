@@ -11,6 +11,12 @@ export const metadata: Metadata = {
   icons: { icon: "/badge.png", apple: "/badge.png" },
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const [siteSettings, navigation, footerSettings] = await Promise.all([
     client.fetch(siteSettingsQuery).catch(() => null),
@@ -18,7 +24,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     client.fetch(footerSettingsQuery).catch(() => null),
   ]);
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <body className="font-body bg-white dark:bg-navy text-charcoal dark:text-gray-300 antialiased transition-colors duration-300">
         <LayoutWrapper siteSettings={siteSettings} navigation={navigation} footerSettings={footerSettings}>
           {children}

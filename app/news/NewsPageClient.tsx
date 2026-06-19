@@ -19,40 +19,51 @@ export default function NewsPageClient({ newsArticles }: any) {
   return (
     <PageTransition>
       <PageHero title="News & Events" subtitle="Stay updated with the latest from Jinja Senior Secondary School" breadcrumbs={[{ label: "Home", href: "/" }, { label: "News & Events" }]} />
-      <section className="section-white py-8 border-b border-gray-100 dark:border-navy-light">
-        <div className="container-custom">
-          <div className="max-w-md mx-auto mb-6"><div className="relative">
-            <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-medium" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-            <input type="text" placeholder="Search articles..." value={q} onChange={e => setQ(e.target.value)} className="w-full pl-12 pr-10 py-3 rounded-xl border border-gray-200 dark:border-navy-light bg-white dark:bg-navy-light text-charcoal dark:text-white placeholder-gray-medium focus:outline-none focus:border-teal focus:ring-2 focus:ring-teal/20 transition-all text-sm" />
-            {q && <button onClick={() => setQ("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-medium hover:text-charcoal dark:hover:text-white transition-colors"><svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg></button>}
-          </div></div>
-          <div className="flex flex-wrap justify-center gap-3">{cats.map((c: any) => (
-            <button key={c} onClick={() => setCat(c)} className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${cat === c ? "bg-teal text-white shadow-md" : "bg-gray-light dark:bg-navy-light text-charcoal dark:text-gray-300 hover:bg-teal/10 hover:text-teal"}`}>{c}</button>
-          ))}</div>
-        </div>
-      </section>
-      <section className="section-gray py-16"><div className="container-custom">
-        {filtered.length > 0 ? (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filtered.map((a: any, i: number) => (
-              <motion.article key={a._id} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, margin: "-50px" }} transition={{ delay: i * 0.1, duration: 0.5 }} whileHover={{ y: -8 }}
-                className="bg-white dark:bg-navy-light rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group border border-gray-100 dark:border-navy-light">
-                <div className="relative h-52 overflow-hidden">
-                  {a.featuredImage && <img src={urlFor(a.featuredImage).width(400).url()} alt={a.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />}
-                  <div className="absolute top-3 left-3"><span className="bg-teal text-white text-xs font-semibold px-3 py-1 rounded-full">{a.category}</span></div>
-                </div>
-                <div className="p-6"><p className="text-gray-medium dark:text-gray-400 text-xs mb-2">{a.publishedDate}</p>
-                  <h3 className="font-heading font-bold text-navy dark:text-white text-xl mb-3 group-hover:text-teal transition-colors duration-300 line-clamp-2">{a.title}</h3>
-                  <p className="text-charcoal dark:text-gray-300 text-sm leading-relaxed line-clamp-3 mb-4">{a.excerpt}</p>
-                  <Link href={`/news/${a.slug?.current}`} className="inline-flex items-center gap-1 text-teal font-semibold text-sm hover:gap-2 transition-all duration-300">Read More <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg></Link>
-                </div>
-              </motion.article>
+      
+      {/* Search & Filters */}
+      <section className="section-white py-6 sm:py-8 border-b border-gray-100 dark:border-navy-light">
+        <div className="container-custom px-4">
+          <div className="max-w-md mx-auto mb-5 sm:mb-6">
+            <div className="relative">
+              <svg className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-medium" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+              <input type="text" placeholder="Search articles..." value={q} onChange={e => setQ(e.target.value)} className="w-full pl-9 sm:pl-12 pr-8 sm:pr-10 py-2.5 sm:py-3 rounded-xl border border-gray-200 dark:border-navy-light bg-white dark:bg-navy-light text-charcoal dark:text-white placeholder-gray-medium focus:outline-none focus:border-teal focus:ring-2 focus:ring-teal/20 transition-all text-xs sm:text-sm" />
+              {q && <button onClick={() => setQ("")} className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 text-gray-medium hover:text-charcoal dark:hover:text-white transition-colors"><svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg></button>}
+            </div>
+          </div>
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+            {cats.map((c: any) => (
+              <button key={c} onClick={() => setCat(c)} className={`px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all ${cat === c ? "bg-teal text-white shadow-md" : "bg-gray-light dark:bg-navy-light text-charcoal dark:text-gray-300 hover:bg-teal/10 hover:text-teal"}`}>{c}</button>
             ))}
           </div>
-        ) : (
-          <div className="text-center py-20"><p className="text-gray-medium dark:text-gray-400 text-lg">No articles found.</p></div>
-        )}
-      </div></section>
+        </div>
+      </section>
+
+      {/* News Grid */}
+      <section className="section-gray py-10 sm:py-16">
+        <div className="container-custom px-4">
+          {filtered.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              {filtered.map((a: any, i: number) => (
+                <motion.article key={a._id} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, margin: "-50px" }} transition={{ delay: i * 0.1, duration: 0.5 }} whileHover={{ y: -8 }}
+                  className="bg-white dark:bg-navy-light rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group border border-gray-100 dark:border-navy-light">
+                  <div className="relative h-44 sm:h-52 overflow-hidden">
+                    {a.featuredImage && <img src={urlFor(a.featuredImage).width(400).url()} alt={a.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />}
+                    <div className="absolute top-2 sm:top-3 left-2 sm:left-3"><span className="bg-teal text-white text-xs font-semibold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">{a.category}</span></div>
+                  </div>
+                  <div className="p-4 sm:p-6">
+                    <p className="text-gray-medium dark:text-gray-400 text-xs mb-2">{a.publishedDate}</p>
+                    <h3 className="font-heading font-bold text-navy dark:text-white text-lg sm:text-xl mb-2 sm:mb-3 group-hover:text-teal transition-colors duration-300 line-clamp-2">{a.title}</h3>
+                    <p className="text-charcoal dark:text-gray-300 text-xs sm:text-sm leading-relaxed line-clamp-3 mb-3 sm:mb-4">{a.excerpt}</p>
+                    <Link href={`/news/${a.slug?.current}`} className="inline-flex items-center gap-1 text-teal font-semibold text-xs sm:text-sm hover:gap-2 transition-all duration-300">Read More <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg></Link>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-20"><p className="text-gray-medium dark:text-gray-400 text-base sm:text-lg">No articles found.</p></div>
+          )}
+        </div>
+      </section>
     </PageTransition>
   );
 }
