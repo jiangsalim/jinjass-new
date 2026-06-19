@@ -11,6 +11,7 @@ export default function Navbar({ siteSettings, navigation }: any) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mobileDropdown, setMobileDropdown] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
@@ -36,6 +37,7 @@ export default function Navbar({ siteSettings, navigation }: any) {
       <motion.header initial={{ y: -100 }} animate={{ y: 0 }} transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "glass py-2" : "bg-transparent py-4"}`}>
         <div className="container-custom flex items-center justify-between">
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
             <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-white flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shadow-lg">
               {logo ? <img src={urlFor(logo).width(80).height(80).url()} alt={schoolName} className="w-8 h-8 sm:w-10 sm:h-10 object-contain" />
@@ -46,11 +48,17 @@ export default function Navbar({ siteSettings, navigation }: any) {
               <p className="text-teal text-xs tracking-wider uppercase">{tagline}</p>
             </div>
           </Link>
+
+          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1">
             {navLinks.map((link: any) => (
-              <div key={link.label} className="relative" onMouseEnter={() => setActiveDropdown(link.label)} onMouseLeave={() => setActiveDropdown(null)}>
+              <div key={link.label} className="relative"
+                onMouseEnter={() => setActiveDropdown(link.label)}
+                onMouseLeave={() => setActiveDropdown(null)}>
                 {link.dropdown && link.dropdown.length > 0 ? (
-                  <button className="px-3 py-2 text-white/80 hover:text-teal transition-colors duration-300 text-sm font-medium flex items-center gap-1">
+                  <button
+                    onClick={() => setActiveDropdown(activeDropdown === link.label ? null : link.label)}
+                    className="px-3 py-2 text-white/80 hover:text-teal transition-colors duration-300 text-sm font-medium flex items-center gap-1">
                     {link.label}
                     <svg className={`w-3 h-3 transition-transform duration-300 ${activeDropdown === link.label ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -75,15 +83,20 @@ export default function Navbar({ siteSettings, navigation }: any) {
               </div>
             ))}
           </nav>
+
+          {/* Desktop Right Side */}
           <div className="hidden lg:flex items-center gap-3">
             <HoverSearch />
             <ThemeToggle />
             <Link href={ctaLink} className="btn-primary text-sm whitespace-nowrap">{ctaText}</Link>
           </div>
+
+          {/* Mobile Right Side */}
           <div className="flex items-center gap-2 lg:hidden">
             <button onClick={() => setIsSearchOpen(true)} className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors" aria-label="Search">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
             </button>
+            <ThemeToggle />
             <button onClick={() => setIsMobileOpen(!isMobileOpen)} className="flex flex-col gap-1.5 p-2 z-50 relative" aria-label="Toggle menu">
               <motion.span animate={isMobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }} className="w-5 h-0.5 bg-white block transition-colors" />
               <motion.span animate={isMobileOpen ? { opacity: 0 } : { opacity: 1 }} className="w-5 h-0.5 bg-white block transition-colors" />
@@ -92,17 +105,58 @@ export default function Navbar({ siteSettings, navigation }: any) {
           </div>
         </div>
       </motion.header>
+
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileOpen && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-navy/95 backdrop-blur-lg lg:hidden flex items-center justify-center overflow-y-auto">
-            <motion.nav initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }} transition={{ delay: 0.1 }} className="flex flex-col items-center gap-6 py-20 px-4">
+            className="fixed inset-0 z-40 bg-navy/95 backdrop-blur-lg lg:hidden flex items-start justify-center overflow-y-auto pt-20 pb-10">
+            <motion.nav initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }} transition={{ delay: 0.1 }} className="flex flex-col items-center gap-4 px-4 w-full max-w-sm">
               {navLinks.map((link: any, index: number) => (
-                <motion.div key={link.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 + index * 0.05 }}>
-                  <Link href={link.href || "/"} onClick={() => setIsMobileOpen(false)} className="text-2xl text-white hover:text-teal transition-colors duration-300 font-heading text-center">{link.label}</Link>
+                <motion.div key={link.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 + index * 0.05 }} className="w-full">
+                  {link.dropdown && link.dropdown.length > 0 ? (
+                    <div className="w-full">
+                      <button
+                        onClick={() => setMobileDropdown(mobileDropdown === link.label ? null : link.label)}
+                        className="w-full text-2xl text-white hover:text-teal transition-colors duration-300 font-heading text-center flex items-center justify-center gap-2"
+                      >
+                        {link.label}
+                        <svg className={`w-4 h-4 transition-transform ${mobileDropdown === link.label ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
+                      <AnimatePresence>
+                        {mobileDropdown === link.label && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="flex flex-col items-center gap-3 mt-3 pt-3 border-t border-white/10">
+                              {link.dropdown.map((item: any) => (
+                                <Link
+                                  key={item.label}
+                                  href={item.href || "/"}
+                                  onClick={() => { setIsMobileOpen(false); setMobileDropdown(null); }}
+                                  className="text-lg text-gray-300 hover:text-teal transition-colors"
+                                >
+                                  {item.label}
+                                </Link>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : (
+                    <Link href={link.href || "/"} onClick={() => setIsMobileOpen(false)} className="block text-2xl text-white hover:text-teal transition-colors duration-300 font-heading text-center">
+                      {link.label}
+                    </Link>
+                  )}
                 </motion.div>
               ))}
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}><ThemeToggle /></motion.div>
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
                 <Link href={ctaLink} onClick={() => setIsMobileOpen(false)} className="btn-primary text-lg mt-4 inline-block">{ctaText}</Link>
               </motion.div>
