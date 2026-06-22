@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
+import PageTransition from "@/components/PageTransition";
 
 const sitemapData = [
   {
@@ -13,8 +14,12 @@ const sitemapData = [
       { label: "Gallery", href: "/gallery" },
       { label: "Contact Us", href: "/contact" },
       { label: "Admissions", href: "/admissions" },
+      { label: "Announcements", href: "/announcements" },
       { label: "E-Learning", href: "/e-learn" },
-      { label: "E-Report", href: "/e-report" },
+      { label: "E-Report (Results Portal)", href: "/e-report" },
+      { label: "Voting Portal", href: "/vote" },
+      { label: "Check Fee Balance", href: "/check-balance" },
+      { label: "Facilities", href: "/facilities" },
     ],
   },
   {
@@ -23,6 +28,7 @@ const sitemapData = [
       { label: "School History", href: "/about/history" },
       { label: "Head Teacher", href: "/about/head-teacher" },
       { label: "School Anthem", href: "/about/anthem" },
+      { label: "Administration Team", href: "/administration" },
     ],
   },
   {
@@ -58,6 +64,24 @@ const sitemapData = [
     ],
   },
   {
+    title: "Administration Profiles",
+    links: [
+      { label: "Head Teacher - Balimusangayo Isaac", href: "/administration/head-teacher" },
+      { label: "Deputy - Khaweka Sam Wabomba Benard", href: "/administration/deputy-academics" },
+      { label: "Deputy - Erangu Simon", href: "/administration/deputy-discipline" },
+      { label: "Deputy - Ongom William Olara", href: "/administration/deputy-admin" },
+      { label: "Deputy - Kisire Farida Tabandika", href: "/administration/deputy-alevel" },
+      { label: "Deputy - Mugabi Samuel", href: "/administration/deputy-health" },
+    ],
+  },
+  {
+    title: "External Portals",
+    links: [
+      { label: "Report Card Login", href: "https://jinja-sss-report-card.onrender.com/portal/login/" },
+      { label: "Voting System", href: "https://jinjass-voting-portal.vercel.app/login" },
+    ],
+  },
+  {
     title: "Legal",
     links: [
       { label: "Privacy Policy", href: "/privacy" },
@@ -69,7 +93,7 @@ const sitemapData = [
 
 export default function SitemapPage() {
   return (
-    <>
+    <PageTransition>
       <PageHero
         title="Sitemap"
         subtitle="Find every page on our website"
@@ -100,6 +124,7 @@ export default function SitemapPage() {
                       <Link
                         href={link.href}
                         className="text-charcoal dark:text-gray-300 hover:text-teal transition-colors text-sm flex items-center gap-2 group"
+                        {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                       >
                         <svg
                           className="w-3 h-3 text-teal opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
@@ -107,14 +132,14 @@ export default function SitemapPage() {
                           stroke="currentColor"
                           viewBox="0 0 24 24"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 5l7 7-7 7"
-                          />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                         {link.label}
+                        {link.href.startsWith("http") && (
+                          <svg className="w-3 h-3 text-gray-medium" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                        )}
                       </Link>
                     </li>
                   ))}
@@ -124,6 +149,6 @@ export default function SitemapPage() {
           </div>
         </div>
       </section>
-    </>
+    </PageTransition>
   );
 }
