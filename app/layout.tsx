@@ -5,7 +5,7 @@ import LayoutWrapper from "@/components/LayoutWrapper";
 import "./globals.css";
 import BackToTop from "@/components/BackToTop";
 import CookieConsent from "@/components/CookieConsent";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: { default: "Jinja Senior Secondary School | Excellence in Education", template: "%s | Jinja Senior Secondary School" },
