@@ -31,29 +31,14 @@ export async function GET(request: NextRequest) {
     // Fix photo URL - convert relative paths to full URLs
     if (data.success && data.student && data.student.photo_url) {
       const photo = data.student.photo_url;
-      
-      // If it's a relative path like /media/photos/student.jpg
-      if (photo.startsWith("/media/") || photo.startsWith("media/")) {
-        const cleanPath = photo.startsWith("/") ? photo : `/${photo}`;
-        data.student.photo_url = `${apiUrl}${cleanPath}`;
+      // If it's a relative path (starts with /)
+      if (photo.startsWith("/")) {
+        data.student.photo_url = `${apiUrl}${photo}`;
       }
-      // If it contains localhost or 127.0.0.1
-      else if (photo.includes("127.0.0.1") || photo.includes("localhost")) {
-        try {
-          const url = new URL(photo);
-          const path = url.pathname + url.search;
-          data.student.photo_url = `${apiUrl}${path}`;
-        } catch {
-          data.student.photo_url = photo;
-        }
-      }
-      // If it's already a full http/https URL, keep it
-      else if (photo.startsWith("http")) {
-        data.student.photo_url = photo;
-      }
-      // Fallback: prepend API URL
-      else {
-        data.student.photo_url = `${apiUrl}/${photo}`;
+      // If it contains localhost or 127.0.0.1 but API URL is different
+      if (photo.includes("127.0.0.1") || photo.includes("localhost")) {
+        const path = photo.replace(/https?:\/\/[^/]+/, "");
+        data.student.photo_url = `${apiUrl}${path}`;
       }
     }
 
