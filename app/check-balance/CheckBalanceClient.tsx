@@ -73,6 +73,7 @@ export default function CheckBalanceClient() {
   const [showInstructions, setShowInstructions] = useState(false);
   const [paymentChecking, setPaymentChecking] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   const code = activeTab === "code" ? paymentCode.trim() : studentId.trim();
   const steps = paymentMethod === "mtn" ? mtnSteps : airtelSteps;
@@ -94,6 +95,7 @@ export default function CheckBalanceClient() {
     setPaymentMethod(null);
     setShowInstructions(false);
     setPaymentSuccess(false);
+    setImgError(false);
 
     try {
       const params = activeTab === "code" ? `payment_code=${code}` : `student_id=${code}`;
@@ -170,7 +172,7 @@ export default function CheckBalanceClient() {
       <section className="section-white py-16">
         <div className="container-custom max-w-2xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, margin: "-100px" }} transition={{ duration: 0.6 }}>
-            
+
             {/* Search Box */}
             <div className="bg-white dark:bg-navy-light rounded-2xl shadow-xl border border-gray-100 dark:border-navy-light p-8 mb-8">
               <h2 className="font-heading text-xl font-bold text-navy dark:text-white mb-2 text-center">Student Fee Balance Checker</h2>
@@ -202,12 +204,23 @@ export default function CheckBalanceClient() {
             <AnimatePresence>
               {result && (
                 <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} transition={{ duration: 0.4 }} className="space-y-6">
-                  
+
                   {/* Student Info Card */}
                   <div className="bg-white dark:bg-navy-light rounded-2xl shadow-xl border border-gray-100 dark:border-navy-light p-8">
                     <div className="text-center mb-6 pb-6 border-b border-gray-100 dark:border-navy-light">
                       <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-4 shadow-lg">
-                        {result.student.photo_url ? <img src={result.student.photo_url} alt={result.student.name} className="w-full h-full object-cover" /> : <div className={`w-full h-full ${getAvatarColor(result.student.name)} flex items-center justify-center`}><span className="text-white font-heading font-bold text-2xl">{getInitials(result.student.name)}</span></div>}
+                        {result.student.photo_url && !imgError ? (
+                          <img
+                            src={result.student.photo_url}
+                            alt={result.student.name}
+                            className="w-full h-full object-cover"
+                            onError={() => setImgError(true)}
+                          />
+                        ) : (
+                          <div className={`w-full h-full ${getAvatarColor(result.student.name)} flex items-center justify-center`}>
+                            <span className="text-white font-heading font-bold text-2xl">{getInitials(result.student.name)}</span>
+                          </div>
+                        )}
                       </div>
                       <h3 className="font-heading font-bold text-2xl text-navy dark:text-white mb-1">{result.student.name}</h3>
                       <p className="text-gray-medium dark:text-gray-400 text-sm">{result.student.class} {result.student.stream} | {result.student.category}</p>
