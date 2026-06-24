@@ -73,6 +73,7 @@ export default function CheckBalanceClient() {
   const [showInstructions, setShowInstructions] = useState(false);
   const [paymentChecking, setPaymentChecking] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [imgLoading, setImgLoading] = useState(true);
   const [imgError, setImgError] = useState(false);
 
   const code = activeTab === "code" ? paymentCode.trim() : studentId.trim();
@@ -96,6 +97,7 @@ export default function CheckBalanceClient() {
     setShowInstructions(false);
     setPaymentSuccess(false);
     setImgError(false);
+    setImgLoading(true);
 
     try {
       const params = activeTab === "code" ? `payment_code=${code}` : `student_id=${code}`;
@@ -209,13 +211,27 @@ export default function CheckBalanceClient() {
                   <div className="bg-white dark:bg-navy-light rounded-2xl shadow-xl border border-gray-100 dark:border-navy-light p-8">
                     <div className="text-center mb-6 pb-6 border-b border-gray-100 dark:border-navy-light">
                       <div className="w-20 h-20 rounded-full overflow-hidden mx-auto mb-4 shadow-lg">
-                        {result.student.photo_url && !imgError ? (
-                          <img
-                            src={result.student.photo_url}
-                            alt={result.student.name}
-                            className="w-full h-full object-cover"
-                            onError={() => setImgError(true)}
-                          />
+                        {result.student.photo_url && result.student.photo_url.length > 10 ? (
+                          <>
+                            {imgLoading && !imgError && (
+                              <div className={`w-full h-full ${getAvatarColor(result.student.name)} flex items-center justify-center`}>
+                                <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                              </div>
+                            )}
+                            <img
+                              key={code}
+                              src={result.student.photo_url}
+                              alt={result.student.name}
+                              className={`w-full h-full object-cover ${imgLoading && !imgError ? 'hidden' : 'block'}`}
+                              onLoad={() => setImgLoading(false)}
+                              onError={() => { setImgError(true); setImgLoading(false); }}
+                            />
+                            {imgError && (
+                              <div className={`w-full h-full ${getAvatarColor(result.student.name)} flex items-center justify-center`}>
+                                <span className="text-white font-heading font-bold text-2xl">{getInitials(result.student.name)}</span>
+                              </div>
+                            )}
+                          </>
                         ) : (
                           <div className={`w-full h-full ${getAvatarColor(result.student.name)} flex items-center justify-center`}>
                             <span className="text-white font-heading font-bold text-2xl">{getInitials(result.student.name)}</span>
