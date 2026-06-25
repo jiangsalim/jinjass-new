@@ -34,14 +34,20 @@ export async function GET(request: NextRequest) {
     // Fix photo URL - convert relative paths to full URLs
     if (data.success && data.student && data.student.photo_url) {
       const photo = data.student.photo_url;
+      
       // If it's a relative path (starts with /)
       if (photo.startsWith("/")) {
         data.student.photo_url = `${apiUrl}${photo}`;
       }
       // If it contains localhost or 127.0.0.1 but API URL is different
-      if (photo.includes("127.0.0.1") || photo.includes("localhost")) {
+      else if (photo.includes("127.0.0.1") || photo.includes("localhost")) {
         const path = photo.replace(/https?:\/\/[^/]+/, "");
         data.student.photo_url = `${apiUrl}${path}`;
+      }
+      
+      // FORCE HTTPS - replace http:// with https:// to fix mixed content
+      if (data.student.photo_url && data.student.photo_url.startsWith("http://")) {
+        data.student.photo_url = data.student.photo_url.replace("http://", "https://");
       }
     }
 
