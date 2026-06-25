@@ -23,9 +23,11 @@ export async function GET(request: NextRequest) {
       endpoint = `${apiUrl}/api/public/statement/?payment_code=${paymentCode}&api_key=${apiKey}`;
     }
 
-    const response = await fetch(endpoint);
+    const response = await fetch(endpoint, {
+      headers: { "ngrok-skip-browser-warning": "true" },
+    });
     const blob = await response.blob();
-    
+
     return new NextResponse(blob, {
       headers: {
         "Content-Type": "application/pdf",

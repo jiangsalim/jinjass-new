@@ -24,7 +24,10 @@ export async function GET(request: NextRequest) {
     }
 
     const response = await fetch(endpoint, {
-      headers: { "X-API-Key": apiKey },
+      headers: {
+        "X-API-Key": apiKey,
+        "ngrok-skip-browser-warning": "true",
+      },
     });
     const data = await response.json();
 
