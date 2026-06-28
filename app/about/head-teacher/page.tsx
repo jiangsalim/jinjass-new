@@ -1,3 +1,5 @@
+export const revalidate = 60; // Revalidate every 60 seconds
+
 import { client } from "@/lib/sanity";
 import { staffQuery } from "@/lib/queries";
 import HeadTeacherPageClient from "./HeadTeacherPageClient";

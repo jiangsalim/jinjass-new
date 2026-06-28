@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { client } from "@/lib/sanity";
 import { siteSettingsQuery, homePageQuery, announcementsQuery, newsArticlesQuery, homepageStaffQuery, unebResultsQuery, feeStructureQuery, aboutContentQuery, termDatesQuery, whyChooseUsQuery, sportsQuery, clubsQuery, facilitiesQuery, subjectCategoriesQuery } from "@/lib/queries";
 import HomePageClient from "@/components/HomePageClient";

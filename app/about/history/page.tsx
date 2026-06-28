@@ -1,3 +1,5 @@
+export const revalidate = 60; // Revalidate every 60 seconds
+
 import { client } from "@/lib/sanity";
 import { singlePageQuery } from "@/lib/queries";
 import PageTransition from "@/components/PageTransition";

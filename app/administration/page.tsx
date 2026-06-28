@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { client } from "@/lib/sanity";
 import { staffQuery } from "@/lib/queries";
 import AdministrationPageClient from "./AdministrationPageClient";

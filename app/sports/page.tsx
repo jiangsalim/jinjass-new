@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { client } from "@/lib/sanity";
 import { sportsQuery } from "@/lib/queries";
 import SportsPageClient from "./SportsPageClient";

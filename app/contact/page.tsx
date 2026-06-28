@@ -1,3 +1,5 @@
+export const revalidate = 60; // Revalidate every 60 seconds
+
 import { client } from "@/lib/sanity";
 import { contactPageQuery, siteSettingsQuery } from "@/lib/queries";
 import ContactPageClient from "./ContactPageClient";

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { client } from "@/lib/sanity";
 import { announcementsQuery } from "@/lib/queries";
 import AnnouncementsPageClient from "./AnnouncementsPageClient";

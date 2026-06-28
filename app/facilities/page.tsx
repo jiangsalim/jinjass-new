@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { client } from "@/lib/sanity";
 import { facilitiesQuery } from "@/lib/queries";
 import FacilitiesPageClient from "./FacilitiesPageClient";

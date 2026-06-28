@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { client } from "@/lib/sanity";
 import { timetablesQuery } from "@/lib/queries";
 import TimetablePageClient from "./TimetablePageClient";
