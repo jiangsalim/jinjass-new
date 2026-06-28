@@ -64,7 +64,7 @@ export default function EReportPage() {
             </div>
 
             <a
-              href="https://jinja-sss-report-card.onrender.com/portal/login/"
+              href="https://jinja-sss-report-card-j4tb.onrender.com/portal/login/"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary inline-flex items-center gap-2 text-lg px-10 py-4"
