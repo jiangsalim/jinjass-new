@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   title: { default: "Jinja Senior Secondary School | Excellence in Education", template: "%s | Jinja Senior Secondary School" },
   description: "Jinja Senior Secondary School (JINJA SS) — Nurturing future leaders since 1948.",
   icons: { icon: "/badge.png", apple: "/badge.png" },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION || "",
+  },
 };
 
 export const viewport = {
