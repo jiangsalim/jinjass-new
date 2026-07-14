@@ -1,5 +1,5 @@
 export async function GET() {
-  const baseUrl = "https://jinjass.sc.ug";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://jinjass-new.vercel.app";
 
   const pages = [
     { url: "/", priority: 1.0 },
