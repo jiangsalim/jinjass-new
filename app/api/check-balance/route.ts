@@ -18,12 +18,16 @@ export async function GET(request: NextRequest) {
   try {
     let endpoint: string;
     if (studentId) {
-      endpoint = `${apiUrl}/api/public/balance-by-card/?student_id=${studentId}&api_key=${apiKey}`;
+      endpoint = `${apiUrl}/api/public/balance-by-card/?student_id=${studentId}`;
     } else {
-      endpoint = `${apiUrl}/api/public/balance/?payment_code=${paymentCode}&api_key=${apiKey}`;
+      endpoint = `${apiUrl}/api/public/balance/?payment_code=${paymentCode}`;
     }
 
-    const response = await fetch(endpoint);
+    const response = await fetch(endpoint, {
+      headers: {
+        "X-API-Key": apiKey,
+      },
+    });
     const data = await response.json();
 
     // Fix photo URL
@@ -35,7 +39,7 @@ export async function GET(request: NextRequest) {
         const path = photo.replace(/https?:\/\/[^/]+/, "");
         data.student.photo_url = `${apiUrl}${path}`;
       }
-      if (data.student.photo_url.startsWith("http://")) {
+      if (data.student.photo_url && data.student.photo_url.startsWith("http://")) {
         data.student.photo_url = data.student.photo_url.replace("http://", "https://");
       }
     }
