@@ -6,10 +6,7 @@ export async function GET(request: NextRequest) {
   const studentId = searchParams.get("student_id");
 
   if (!paymentCode && !studentId) {
-    return NextResponse.json(
-      { error: "Payment code or Student ID is required" },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "Payment code or Student ID is required" }, { status: 400 });
   }
 
   const apiUrl = process.env.NEXT_PUBLIC_ONECARD_API_URL || "http://127.0.0.1:8000";
@@ -23,9 +20,7 @@ export async function GET(request: NextRequest) {
       endpoint = `${apiUrl}/api/public/statement/?payment_code=${paymentCode}&api_key=${apiKey}`;
     }
 
-    const response = await fetch(endpoint, {
-      headers: { "ngrok-skip-browser-warning": "true" },
-    });
+    const response = await fetch(endpoint);
     const blob = await response.blob();
 
     return new NextResponse(blob, {
@@ -35,9 +30,6 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch {
-    return NextResponse.json(
-      { error: "Cannot download statement" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Cannot download statement" }, { status: 500 });
   }
 }

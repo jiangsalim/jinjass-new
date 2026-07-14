@@ -18,35 +18,24 @@ export async function GET(request: NextRequest) {
   try {
     let endpoint: string;
     if (studentId) {
-      endpoint = `${apiUrl}/api/public/balance-by-card/?student_id=${studentId}`;
+      endpoint = `${apiUrl}/api/public/balance-by-card/?student_id=${studentId}&api_key=${apiKey}`;
     } else {
-      endpoint = `${apiUrl}/api/public/balance/?payment_code=${paymentCode}`;
+      endpoint = `${apiUrl}/api/public/balance/?payment_code=${paymentCode}&api_key=${apiKey}`;
     }
 
-    const response = await fetch(endpoint, {
-      headers: {
-        "X-API-Key": apiKey,
-        "ngrok-skip-browser-warning": "true",
-      },
-    });
+    const response = await fetch(endpoint);
     const data = await response.json();
 
-    // Fix photo URL - convert relative paths to full URLs
+    // Fix photo URL
     if (data.success && data.student && data.student.photo_url) {
       const photo = data.student.photo_url;
-      
-      // If it's a relative path (starts with /)
       if (photo.startsWith("/")) {
         data.student.photo_url = `${apiUrl}${photo}`;
-      }
-      // If it contains localhost or 127.0.0.1 but API URL is different
-      else if (photo.includes("127.0.0.1") || photo.includes("localhost")) {
+      } else if (photo.includes("127.0.0.1") || photo.includes("localhost")) {
         const path = photo.replace(/https?:\/\/[^/]+/, "");
         data.student.photo_url = `${apiUrl}${path}`;
       }
-      
-      // FORCE HTTPS - replace http:// with https:// to fix mixed content
-      if (data.student.photo_url && data.student.photo_url.startsWith("http://")) {
+      if (data.student.photo_url.startsWith("http://")) {
         data.student.photo_url = data.student.photo_url.replace("http://", "https://");
       }
     }
