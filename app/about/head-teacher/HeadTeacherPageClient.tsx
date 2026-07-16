@@ -5,6 +5,7 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import PageTransition from "@/components/PageTransition";
 import { urlFor } from "@/lib/sanity";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 export default function HeadTeacherPageClient({ headTeacher }: any) {
   const name = headTeacher?.fullName || "Head Teacher";
@@ -126,6 +127,13 @@ export default function HeadTeacherPageClient({ headTeacher }: any) {
           </div>
         </div>
       </section>
+      <BreadcrumbSchema
+                    items={[
+                     { name: "Home", url: "/" },
+                     { name: "About", url: "/about" },
+                     { name: "School History", url: "/about/history" },
+                  ]}
+                  />
     </PageTransition>
   );
 }

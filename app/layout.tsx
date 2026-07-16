@@ -6,6 +6,9 @@ import "./globals.css";
 import BackToTop from "@/components/BackToTop";
 import CookieConsent from "@/components/CookieConsent";
 import { Analytics } from "@vercel/analytics/next";
+import OrganizationSchema from "@/components/OrganizationSchema";
+import WebsiteSchema from "@/components/WebsiteSchema";
+
 
 export const metadata: Metadata = {
   title: {
@@ -71,6 +74,8 @@ export default async function RootLayout({
         <BackToTop />
         <CookieConsent />
         <Analytics />
+        <OrganizationSchema />
+        <WebsiteSchema />
       </body>
     </html>
   );

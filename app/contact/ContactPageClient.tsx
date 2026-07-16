@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import PageHero from "@/components/PageHero";
 import PageTransition from "@/components/PageTransition";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 export default function ContactPageClient({ contactPage, siteSettings }: any) {
   const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
@@ -61,6 +62,14 @@ export default function ContactPageClient({ contactPage, siteSettings }: any) {
           </div>
         </div>
       </section>
+      <BreadcrumbSchema
+                   items={[
+                    { name: "Home", url: "/" },
+                    { name: "About", url: "/about" },
+                    { name: "School History", url: "/about/history" },
+                    { name: "Contact", url: "/contact" }
+                 ]}
+      />
     </PageTransition>
   );
 }

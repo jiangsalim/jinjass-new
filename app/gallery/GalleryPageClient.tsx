@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import PageHero from "@/components/PageHero";
 import PageTransition from "@/components/PageTransition";
 import { urlFor } from "@/lib/sanity";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 export default function GalleryPageClient({ images }: any) {
   const [cat, setCat] = useState("All");
@@ -68,6 +69,14 @@ export default function GalleryPageClient({ images }: any) {
           </motion.div>
         )}
       </AnimatePresence>
+      <BreadcrumbSchema
+                   items={[
+                    { name: "Home", url: "/" },
+                    { name: "About", url: "/about" },
+                    { name: "School History", url: "/about/history" },
+                    { name: "Gallery", url: "/gallery" }
+                 ]}
+      />
     </PageTransition>
   );
 }

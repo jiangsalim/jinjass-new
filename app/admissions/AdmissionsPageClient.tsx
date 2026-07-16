@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import PageTransition from "@/components/PageTransition";
+import FAQSchema from "@/components/FAQSchema";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 export default function AdmissionsPageClient({ data }: any) {
   if (!data) return null;
@@ -85,6 +87,14 @@ export default function AdmissionsPageClient({ data }: any) {
           </div>
         </div>
       </section>
+     <FAQSchema faqs={data.faqs || []} />
+     <BreadcrumbSchema
+             items={[
+              { name: "Home", url: "/" },
+              { name: "About", url: "/about" },
+              { name: "School History", url: "/about/history" },
+           ]}
+           />
     </PageTransition>
   );
 }

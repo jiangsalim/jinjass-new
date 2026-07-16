@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import PageHero from "@/components/PageHero";
 import PageTransition from "@/components/PageTransition";
 import { urlFor } from "@/lib/sanity";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 const terms = ["All", "Term 1", "Term 2", "Term 3"];
 const classes = ["All", "S1", "S2", "S3", "S4", "S5", "S6"];
@@ -201,6 +202,13 @@ export default function TimetablePageClient({ timetables }: any) {
           </motion.div>
         )}
       </AnimatePresence>
+      <BreadcrumbSchema
+              items={[
+               { name: "Home", url: "/" },
+               { name: "About", url: "/about" },
+               { name: "School History", url: "/about/history" },
+            ]}
+            />
     </PageTransition>
   );
 }

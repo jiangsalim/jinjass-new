@@ -4,6 +4,7 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import PageTransition from "@/components/PageTransition";
 import { urlFor } from "@/lib/sanity";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 export default function SportsPageClient({ sports }: any) {
   return (
@@ -23,6 +24,14 @@ export default function SportsPageClient({ sports }: any) {
           </motion.div>
         ))}
       </div></div></section>
+      <BreadcrumbSchema
+                   items={[
+                    { name: "Home", url: "/" },
+                    { name: "About", url: "/about" },
+                    { name: "School History", url: "/about/history" },
+                    { name: "Sports", url: "/sports" }
+                 ]}
+      />
     </PageTransition>
   );
 }

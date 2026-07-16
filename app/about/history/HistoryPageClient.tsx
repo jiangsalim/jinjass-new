@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import PageTransition from "@/components/PageTransition";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 const timelineEvents = [
   {
@@ -173,6 +174,13 @@ export default function HistoryPageClient({ page }: any) {
           </div>
         </div>
       </section>
+      <BreadcrumbSchema
+       items={[
+        { name: "Home", url: "/" },
+        { name: "About", url: "/about" },
+        { name: "School History", url: "/about/history" },
+      ]}
+      />
     </PageTransition>
   );
 }

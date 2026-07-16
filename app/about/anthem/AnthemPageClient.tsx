@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import PageHero from "@/components/PageHero";
 import PageTransition from "@/components/PageTransition";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 export default function AnthemPageClient({ page }: any) {
   return (
@@ -77,6 +78,14 @@ export default function AnthemPageClient({ page }: any) {
           </motion.div>
         </div>
       </section>
+      <BreadcrumbSchema
+                    items={[
+                     { name: "Home", url: "/" },
+                     { name: "About", url: "/about" },
+                     { name: "School History", url: "/about/history" },
+                     { name: "School Anthem", url: "/about/anthem" },
+                  ]}
+                  />
     </PageTransition>
   );
 }

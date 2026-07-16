@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import PageHero from "@/components/PageHero";
 import PageTransition from "@/components/PageTransition";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 export default function SubjectsPageClient({ categories }: any) {
   const [tab, setTab] = useState(0);
@@ -28,6 +29,13 @@ export default function SubjectsPageClient({ categories }: any) {
           </motion.div>
         </AnimatePresence>
       </div></section>
+      <BreadcrumbSchema
+              items={[
+               { name: "Home", url: "/" },
+               { name: "About", url: "/about" },
+               { name: "School History", url: "/about/history" },
+            ]}
+            />
     </PageTransition>
   );
 }

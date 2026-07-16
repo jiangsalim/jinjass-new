@@ -5,6 +5,7 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import PageTransition from "@/components/PageTransition";
 import { urlFor } from "@/lib/sanity";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 export default function NewsPageClient({ newsArticles }: any) {
   const [cat, setCat] = useState("All");
@@ -64,6 +65,13 @@ export default function NewsPageClient({ newsArticles }: any) {
           )}
         </div>
       </section>
+      <BreadcrumbSchema
+        items={[
+         { name: "Home", url: "/" },
+         { name: "About", url: "/about" },
+         { name: "School History", url: "/about/history" },
+      ]}
+      />
     </PageTransition>
   );
 }

@@ -4,6 +4,7 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import PageTransition from "@/components/PageTransition";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 function CountUp({ target, suffix, isInView }: any) {
   const [c, s] = useState(0); const r = useRef(false);
@@ -53,6 +54,13 @@ export default function AcademicsPageClient({ unebResults, subjectCategories }: 
           })}
         </div>
       </div></section>
+      <BreadcrumbSchema
+              items={[
+               { name: "Home", url: "/" },
+               { name: "About", url: "/about" },
+               { name: "School History", url: "/about/history" },
+            ]}
+            />
     </PageTransition>
   );
 }
