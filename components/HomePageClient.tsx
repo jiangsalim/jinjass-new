@@ -15,6 +15,7 @@ import SportsSection from "@/components/SportsSection";
 import FacilitiesSection from "@/components/FacilitiesSection";
 import ContactSection from "@/components/ContactSection";
 import PageTransition from "@/components/PageTransition";
+import OneCardCTA from "@/components/OneCardCTA";
 
 export default function HomePageClient(props: any) {
   return (
@@ -33,6 +34,7 @@ export default function HomePageClient(props: any) {
       <WhyChooseUs whyChooseUs={props.whyChooseUs} />
       <SportsSection sports={props.sports} clubs={props.clubs} />
       <FacilitiesSection facilities={props.facilities} />
+      <OneCardCTA />
       <ContactSection siteSettings={props.siteSettings} />
     </PageTransition>
   );
