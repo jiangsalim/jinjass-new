@@ -15,17 +15,22 @@ export async function GET(request: NextRequest) {
   try {
     let endpoint: string;
     if (studentId) {
-      endpoint = `${apiUrl}/api/public/statement-by-card/?student_id=${studentId}`;
+      endpoint = `${apiUrl}/api/public/statement-by-card/?student_id=${studentId}&api_key=${apiKey}`;
     } else {
-      endpoint = `${apiUrl}/api/public/statement/?payment_code=${paymentCode}`;
+      endpoint = `${apiUrl}/api/public/statement/?payment_code=${paymentCode}&api_key=${apiKey}`;
     }
 
-    const response = await fetch(endpoint, {
-      headers: {
-        "X-API-Key": apiKey,
-      },
-    });
+    const response = await fetch(endpoint);
+    
+    if (!response.ok) {
+      return NextResponse.json({ error: "Failed to generate statement" }, { status: 500 });
+    }
+
     const blob = await response.blob();
+    
+    if (blob.size === 0) {
+      return NextResponse.json({ error: "No statement data received" }, { status: 500 });
+    }
 
     return new NextResponse(blob, {
       headers: {
